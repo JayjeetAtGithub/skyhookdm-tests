@@ -2,3 +2,7 @@ steps:
 - id: deploy rook cluster
   uses: sh
   runs: ['./rook/rook.sh']
+
+- id: setup prometheus monitoring
+  uses: sh
+  runs: ['./prometheus/prometheus.sh']
