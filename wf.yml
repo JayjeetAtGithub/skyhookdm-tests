@@ -1,5 +1,4 @@
-version: 1.0
 steps:
 - id: deploy rook cluster
-  uses: docker://bitnami/kubectl
-  runs: ['./scripts/rook.sh']
+  uses: sh
+  runs: ['./rook/rook.sh']
