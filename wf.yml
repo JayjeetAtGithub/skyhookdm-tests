@@ -1,5 +1,6 @@
 steps:
 # here we need to add steps to spawn machines
+
 - id: spawn kubernetes cluster
   uses: docker://popperized/ansible:v2.9
   runs: ['./scripts/setup_kubespray.sh']
@@ -7,6 +8,15 @@ steps:
     'ANSIBLE_USER',
     'ANSIBLE_SSH_KEY_DATA',
     'ANSIBLE_HOSTS'
+  ]
+
+- id: copy ssh key
+  uses: docker://lgatica/openssh-client
+  runs: ['./scripts/copy_config.sh']
+  secrets: [
+    'K8S_MASTER',
+    'ANSIBLE_USER',
+    'ANSIBLE_SSH_KEY_DATA'
   ]
 
 - id: setup rook skyhookdm cluster
