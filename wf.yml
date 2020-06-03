@@ -1,8 +1,22 @@
 steps:
-- id: deploy rook cluster
+# here we need to add steps to spawn machines
+- id: spawn kubernetes cluster
+  uses: docker://popperized/ansible:v2.9
+  runs: ['./scripts/setup_kubespray.sh']
+  secrets: [
+    'ANSIBLE_USER',
+    'ANSIBLE_SSH_KEY_DATA',
+    'ANSIBLE_HOSTS'
+  ]
+
+- id: setup rook skyhookdm cluster
   uses: sh
-  runs: ['./rook/rook.sh']
+  runs: ['./scripts/setup_rook.sh']
 
 - id: setup prometheus monitoring
   uses: sh
-  runs: ['./prometheus/prometheus.sh']
+  runs: ['./scripts/setup_prometheus.sh']
+
+- id: teardown prometheus monitoring
+  uses: sh
+  runs: ['./scripts/teardown_prometheus.sh']
