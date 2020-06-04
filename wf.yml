@@ -10,7 +10,7 @@ steps:
     'ANSIBLE_HOSTS'
   ]
 
-- id: copy ssh key
+- id: copy kube config
   uses: docker://lgatica/openssh-client
   runs: ['./scripts/copy_config.sh']
   secrets: [
@@ -20,13 +20,13 @@ steps:
   ]
 
 - id: setup rook skyhookdm cluster
-  uses: sh
+  uses: docker://bitnami/kubectl
   runs: ['./scripts/setup_rook.sh']
 
 - id: setup prometheus monitoring
-  uses: sh
+  uses: docker://bitnami/kubectl
   runs: ['./scripts/setup_prometheus.sh']
 
 - id: teardown prometheus monitoring
-  uses: sh
+  uses: docker://bitnami/kubectl
   runs: ['./scripts/teardown_prometheus.sh']
