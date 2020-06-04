@@ -11,7 +11,8 @@ pip install -r requirements.txt
 cp -rfp inventory/sample inventory/skyhookcluster
 
 # specify the participating nodes IP's
-declare -a IPS=("$ANSIBLE_HOSTS")
+HOSTS=$(cat /workspace/geni/hosts)
+declare -a IPS=("$HOSTS")
 CONFIG_FILE=inventory/skyhookcluster/hosts.yaml python3 contrib/inventory_builder/inventory.py ${IPS[@]}
 
 if [ -z "$ANSIBLE_SSH_KEY_DATA" ]; then
