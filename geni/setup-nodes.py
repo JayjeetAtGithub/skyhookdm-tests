@@ -33,7 +33,7 @@ ctx = util.loadContext(path="/geni-context.json",
                        key_passphrase=os.environ['GENI_KEY_PASSPHRASE'])
 
 # create slice
-util.createSlice(ctx, slice_name)
+util.createSlice(ctx, slice_name, 300, True)
 
 # identify the cluster
 cluster = str(os.environ['NODE_CLUSTER'])
@@ -56,6 +56,5 @@ node_ip_list = list()
 for idx in range(0, len(dict_response['rspec']['node'])):
     node_ip_list.append(str(dict_response['rspec']['node'][idx]['host']['@ipv4']))
 
-print(os.getcwd())
 with open('/workspace/geni/hosts', 'w') as f:
     f.write(' '.join(node_ip_list))
